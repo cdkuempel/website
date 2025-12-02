@@ -1,0 +1,20 @@
+[
+  {
+    "id": "adams_2023",
+    "title": "Multiple-use protected areas are critical to equitable and effective conservation",
+    "authors": "Adams, Cahuvenet, Stoudmann, Gurney...",
+    "date": "September 15, 2023",
+    "image": "adams_2023.png",
+    "abstract": "Given their substantial contributions to meeting area-based targets, we review evidence of multiple-use protected areas in meeting global policy goals. We found that multiple-use and other protected areas provide important environmental and socio-economic benefits that are needed to achieve the 2030 target.", 
+    "external_link": "https://doi.org/10.1038/s41586-023-06687-3"
+  },
+  {
+    "id": "froehlich_2023",
+    "title": "Biological life history and farming scenarios of marine aquaculture",
+    "authors": "Froehlich, Montgomery, Williams...",
+    "date": "August 17, 2023",
+    "image": "froehlich_2023.png",
+    "abstract": "This study assesses how biological life history traits and current farming scenarios for marine aquaculture can help reduce fishing pressure on wild marine stocks. We examine trade-offs...", // <--- ABSTRACT 2
+    "external_link": "https://doi.org/10.1111/fsh.12604"
+  }
+]	
