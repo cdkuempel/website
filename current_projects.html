@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr Caitie Kuempel - Current projects</title>
+    
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="global-header-placeholder"></div>
+
+    <main class="container mt-5">
+        <h1 class="text-center mb-5" style="font-size: 2.5rem; color: var(--quarto-primary-color);">Current Projects</h1>
+        
+        <div class="archive-intro-text text-center mb-5">
+            <p>Below are a few key current projects. We work on a diverse range of topics and the list here is not comprehensive.
+            </a> For a full list of our work see our publications page
+            <a href="http://127.0.0.1:5500/publications.html" target="_blank">
+                <i class="fa-solid fa-file"></i> Publications
+            </a>.</p>
+        </div>
+        
+        <div class="publications-layout-wrapper">
+
+            <div id="publications-grid" class="dynamic-grid">
+                </div>
+
+            <div id="filter-sidebar" class="publication-filter-sidebar">
+                <h4 class="sidebar-title">Filter by Topic</h4>
+                <div id="category-list">
+                    </div>
+            </div>
+
+        </div> </main>
+
+    <script>
+    // --- 1. EMBEDDED PUBLICATION DATA ---
+    
+    //  Example publication entry
+    //      {
+    //          "id": "adams_2023", // unique identifier
+    //          "title": "Multiple-use protected areas are critical to equitable and effective conservation", //  title of the publication
+    //          "authors": "Adams, Cahuvenet, Stoudmann, Gurney...", // list of authors
+    //          "date": "September 15, 2023", // publication date
+    //          "image": "adams_2023.png", // image filename located in publications/ folder
+    //          "abstract": "Given their substantial contributions to meeting area-based targets, we review evidence of multiple-use protected areas in meeting global policy goals. We found that multiple-use and other protected areas provide important environmental and socio-economic benefits that are needed to achieve the 2030 target.", // abstract or summary
+    //          "external_link": "https://doi.org/10.1038/s41586-023-06687-3", // link to the full publication
+    //          "categories": ["MPA", "Conservation Planning"] // list of categories/tags for filtering, the category list will autoupdate with only the categories found here (across all the cards)
+    //      }, // this comma is needed for all but last entry
+
+
+
+        const publicationData = [
+          {
+            "id": "Mapping_aquaculture",
+            "title": "Putting Australian aquaculture on the map",
+            "authors": "Kuempel, Christofidis, Metcher and others",
+            "date": "Ongoing",
+            "image": "australian_aquaculture.png",
+            "abstract": "There is currently no national database of aquaculture farms in Australia. This project aims to create a comprehensive map of aquaculture farms across the country, including their locations, species farmed, and production distribution. This information will be used to evalute environmental risks to and from aquaculture production and to inform policy and management decisions related to aquaculture development and sustainability.",
+            "external_link": "https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecs2.1399",
+            "categories": ["Aquaculture", "Food systems"]
+        },
+        {
+            "id": "BECRC",
+            "title": "BECRC Marine Spatial Planning Project",
+            "authors": "Frid, Griffiths, Kuempel, Stockbridge and others",
+            "date": "2022-2026",
+            "image": "becrc.png",
+            "abstract": "This paper explores how the evenness of habitat representation within protected areas has changed through time.",
+            "external_link": "https://blueeconomycrc.com.au/marine-spatial-planning/",
+            "categories": ["Conservation planning", "Offshore renewables"]
+        },
+        {
+         "id": "NbS",
+            "title": "Nature-based solutions for coastal resilience",
+            "authors": "Kuempel, Morgan, Fleming, Hoegh-Guldberg and others",
+            "date": "Ongoing",
+            "image": "australia_awards_png.png",
+            "abstract": "We are investigating the potential for nature-based solutions (NbS) to enhance coastal resilience in the face of climate change and other anthropogenic pressures. This is a collection of projects that has largely been focused on water quality improvement for coral reefs in Fiji in collaboration with World Wildlife Fund and capacity buildling for local practitioners in Papua New Guinea as part of an Australia Awards course.",
+            "external_link": ".",
+            "categories": ["Nature-based solutions", "Coastal resilience"]
+        },
+                {
+         "id": "Offshore wind",
+            "title": "Biodiversity-smart offshore wind development",
+            "authors": "Kuempel",
+            "date": "In development",
+            "image": "offshore_wind.png",
+            "abstract": "I am currently developing several projects to explore biodiversity-smart offshore wind development in Australia and globally. Aims include assessing biodiversity impacts from offshore wind and identifying key areas for offshore wind development that minimize impacts on marine biodiversity and ecosystem services, while maximizing energy production and economic benefits. The work hopes to improve policy and practice for a sustainable offshore wind industry.",
+            "external_link": ".",
+            "categories": ["Nature-based solutions", "Coastal resilience"]
+        }
+    ];
+    // --- END EMBEDDED DATA ---
+
+
+    // --- 2. Global Header Inclusion Script ---
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('_header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('global-header-placeholder').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading global header:', error);
+            });
+    });
+
+    // --- 3. Dynamic Publication Grid Rendering and Filtering Script ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const data = publicationData; 
+        
+        if (!data || data.length === 0) {
+            document.getElementById('publications-grid').innerHTML = '<p class="text-center">Error: Publication data is missing or empty. Please ensure data is correctly embedded.</p>';
+            return;
+        }
+
+        const gridContainer = document.getElementById('publications-grid');
+        const categoryList = document.getElementById('category-list');
+        const categories = new Set(['All']); // Start with 'All' category
+
+        // 1. Collect all unique categories
+        data.forEach(pub => {
+            if (pub.categories) {
+                pub.categories.forEach(cat => categories.add(cat));
+            }
+        });
+
+        // 2. Display Categories in Sidebar and attach event listeners
+        categories.forEach(cat => {
+            const link = document.createElement('a');
+            link.href = '#';
+            link.textContent = cat;
+            link.setAttribute('data-category', cat);
+            categoryList.appendChild(link);
+            
+            // Set up click listener for filtering
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const filterCat = e.target.getAttribute('data-category');
+                
+                // Reset active status
+                document.querySelectorAll('#category-list a').forEach(a => a.classList.remove('active-filter'));
+                e.target.classList.add('active-filter');
+                
+                filterAndRender(filterCat);
+            });
+        });
+        
+        // Initial render: show all
+        filterAndRender('All'); 
+        
+        // Ensure 'All' link is marked active (after initial render)
+        const allLink = document.querySelector('#category-list a[data-category="All"]');
+        if (allLink) {
+             allLink.classList.add('active-filter');
+        }
+
+
+        // 3. Filtering Function
+        function filterAndRender(filterCat) {
+            
+            // CRITICAL FIX: CLEAR THE GRID BEFORE DOING ANY FILTERING
+            gridContainer.innerHTML = ''; 
+            
+            let filteredData = data.filter(pub => 
+                filterCat === 'All' || (pub.categories && pub.categories.includes(filterCat))
+            ).reverse(); // Reverse for newest first
+
+            
+            if (filteredData.length === 0) {
+                // If there are no results, the grid is already clear, so we just add the message.
+                gridContainer.innerHTML = '<p class="text-center w-100">No articles found in this category.</p>';
+                return;
+            }
+
+            filteredData.forEach(pub => {
+                // Get a short abstract preview (e.g., first 25 words)
+                const abstractPreview = pub.abstract.split(' ').slice(0, 25).join(' ') + (pub.abstract.split(' ').length > 25 ? '...' : '');
+                const imagePath = `publications/${pub.image}`;
+
+                const cardHtml = `
+                    <a href="${pub.external_link}" target="_blank" class="publication-card-link"> 
+                        <div class="publication-card">
+                            <img src="${imagePath}" alt="${pub.title} thumbnail" class="card-image">
+                            <div class="card-content">
+                                <h2 class="card-title">${pub.title}</h2>
+                                <p class="card-meta">${pub.authors} | ${pub.date}</p>
+                                <p class="abstract-preview">${pub.abstract}</p>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                gridContainer.innerHTML += cardHtml;
+            });
+        }
+    });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr Caitie Kuempel - Blog</title>
+    
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="global-header-placeholder"></div>
+
+     <main class="container mt-5">
+        <h1 class="text-center mb-5" style="font-size: 2.5rem; color: var(--quarto-primary-color);">Lab News & Announcements</h1>
+
+        <div class="news-timeline-container">
+
+        <details class="news-item">
+                <summary class="news-summary">
+                    <span class="news-date">November 2025</span>
+                    <div class="news-content-box">
+                        <h3 class="news-title">Dr Kuempel is a finalist for the QLD Women in STEM prize!</h3>
+                    </div>
+                </summary>
+                
+                <div class="news-expanded-content">
+                    <p> .</p>
+                    
+                    <a href="https://www.museum.qld.gov.au/about/queensland-women-in-stem-prize#finalists" target="_blank" class="news-link">
+                        Find out more! <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                    </a>
+                </div>
+            </details>
+
+             <details class="news-item">
+                <summary class="news-summary">
+                    <span class="news-date">November 2025</span>
+                    <div class="news-content-box">
+                        <h3 class="news-title">Lab meeting - should you post a pre-print?</h3>
+                    </div>
+                </summary>
+                
+                <div class="news-expanded-content">
+                    <p>In our recent lab meeting with the Seascapes lab group, we discussed the pros and cons of publishing a pre-print. Check out the summary of our discussion</p>
+                    
+                    <a href="https://www.seascapemodels.org/posts/2025-11-15-should-i-do-a-pre-print/" target="_blank" class="news-link">
+                        Read more <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                    </a>
+                </div>
+            </details>
+
+            <details class="news-item">
+                <summary class="news-summary">
+                    <span class="news-date">October 2025</span>
+                    <div class="news-content-box">
+                        <h3 class="news-title">Our work in the news - Times magazine mentions our work on protein overconsumption and nutrient pollution</h3>
+                    </div>
+                </summary>
+                
+                <div class="news-expanded-content">
+                    <p> .</p>
+                    
+                    <a href="https://time.com/7328589/pee-color-health-insights-urine/" target="_blank" class="news-link">
+                        Read the Full Story <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                    </a>
+                </div>
+            </details>
+
+            <details class="news-item">
+                <summary class="news-summary">
+                    <span class="news-date">September 2025</span>
+                    <div class="news-content-box">
+                        <h3 class="news-title">New paper alert! Seafood Sustainability Challenges for Import-Dependent Nations</h3>
+                    </div>
+                </summary>
+                
+                <div class="news-expanded-content">
+                    <p> Dr Kuempel has published a new paper on Seafood Sustainability Challenges for Import-Dependent Nations in Reviews in Fisheries Science and Aquaculture. The paper was led by Rosa Mar Dominguez-Martinez at UQ, with other collaborators from UTas and Uni of Wollongong</p>
+                    
+                    <a href="https://www.tandfonline.com/doi/full/10.1080/23308249.2025.2555853" target="_blank" class="news-link">
+                        Read the full article! <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                    </a>
+                </div>
+            </details>
+
+        <details class="news-item">
+                <summary class="news-summary">
+                    <span class="news-date">June 2025</span>
+                    <div class="news-content-box">
+                        <h3 class="news-title">Go behind our recent aquaculture and sea level rise paper</h3>
+                    </div>
+                </summary>
+                
+                <div class="news-expanded-content">
+                    <p>Lead author, Marina Christofidis, takes us behind the scenes of our latest research on aquaculture and sea level rise and how it came to life.</p>
+                    
+                    <a href="https://communities.springernature.com/posts/reporting-exposure-to-projected-sea-level-rise-on-land-based-coastal-aquaculture-systems" target="_blank" class="news-link">
+                        Go behind the paper <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                    </a>
+                </div>
+            </details>
+
+            <details class="news-item">
+                <summary class="news-summary">
+                    <span class="news-date">April 2025</span>
+                    <div class="news-content-box">
+                        <h3 class="news-title">Our work in the news - Conversation article on Queensland Prawn Areas and sea level rise</h3>
+                    </div>
+                </summary>
+                
+                <div class="news-expanded-content">
+                    <p>Our research on Queensland Prawn Areas and sea level rise was featured in an article on The Conversation, highlighting the risks of inundation this century.</p>
+                    
+                    <a href="https://theconversation.com/98-of-queensland-prawn-areas-at-risk-of-inundation-by-rising-seas-this-century-253330" target="_blank" class="news-link">
+                        Read the Full Story <i class="fa-solid fa-arrow-up-right-from-square fa-xs"></i>
+                    </a>
+                </div>
+            </details>
+
+
+        
+    </main>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Global Header Inclusion Script
+        fetch('_header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('global-header-placeholder').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading global header:', error);
+            });
+    });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

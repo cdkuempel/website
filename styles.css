@@ -1,1 +1,1206 @@
-/* css styles */
+/* ======================================================= */
+/* 1. GLOBAL VARIABLES & TYPOGRAPHY */
+/* ======================================================= */
+
+/* Import modern fonts: Source Sans 3 (body) and Montserrat (headings) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+:root {
+  /* Primary Brand Color: Deep Navy/Teal */
+  --quarto-primary-color: #004d61; 
+  /* Secondary Accent Color: Warm Gold/Orange */
+  --quarto-secondary-color: #e9a33d; 
+  
+  /* Global Overrides */
+  --bs-primary: var(--quarto-primary-color);
+  --bs-link-color: var(--quarto-primary-color);
+  --bs-link-hover-color: var(--quarto-secondary-color);
+  --bs-body-color: #333333; 
+}
+
+/* Typography */
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  line-height: 1.65;
+  font-size: 1.05rem; 
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--bs-body-color);
+  font-weight: 700;
+  padding-top: 0.5rem;
+}
+
+/* ======================================================= */
+/* 2. NAVIGATION BAR: FULL SCALE & SPLIT STRUCTURE (FINAL FIX) */
+/* ======================================================= */
+
+.custom-navbar {
+    min-height: 200px; 
+    
+    display: flex;
+    flex-wrap: wrap; /* Safety for very small screens */
+    justify-content: center; 
+    align-items: center; 
+    gap: clamp(20px, 3vw, 40px);
+    
+    /* Basic padding so the group never hits the edge */
+    padding: 10px 20px; 
+    
+    border-bottom: 5px solid var(--quarto-primary-color);
+    background-color: white;
+}
+
+/* --- NAV LINKS: LEFT AND RIGHT --- */
+.nav-links-left, .nav-links-right {
+    display: flex;
+    align-items: center; 
+    justify-content: space-around;    
+}
+
+/* Base Link Style */
+.custom-navbar a {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif !important; 
+    font-weight: 700 !important; 
+    color: var(--bs-body-color);
+    transition: color 0.2s;
+    padding: 0; 
+    margin: 0; 
+    font-size: clamp(1.1rem, 1.2vw, 1.3rem) !important; 
+}
+
+.custom-navbar a:hover {
+    color: var(--quarto-secondary-color);
+}
+
+/* --- THE UNIFORM SEPARATOR DOT (·) --- */
+.sep-dot {
+    font-weight: 700;
+    color: var(--bs-body-color);
+    font-size: clamp(1.2rem, 1.4vw, 1.6rem); 
+    padding: 0 clamp(10px, 1.2vw, 15px); 
+}
+
+/* ======================================================= */
+/* 3. CENTRAL BRANDING: LOGO, TEXT, & STATIC IMAGE (STABLE) */
+/* ======================================================= */
+
+.brand-center {
+    position: relative;
+    transform: none;
+    left: auto;
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    padding-top: 10px;
+    z-index: 50; 
+    margin: 0; 
+}
+
+/* Static Logo Sizing */
+.static-header-logo {
+    /* * THE SCALING LOGO:
+     * The logo width now scales with the window.
+     * Min: 180px, Ideal: 16vw, Max: 250px
+     */
+    width: clamp(180px, 16vw, 250px); 
+    
+    /* Use 'auto' to maintain aspect ratio */
+    height: auto; 
+    
+    object-fit: contain; 
+    margin: 0 auto 5px auto; 
+}
+
+.brand-name {
+    font-weight: 800;
+    margin-top: 8px;
+    text-transform: none; 
+    color: var(--bs-body-color);
+    
+    /* * THE SCALING TEXT:
+     * The brand text below the logo also scales.
+     * Min: 1.4rem, Ideal: 1.8vw, Max: 1.7rem
+     */
+    font-size: clamp(1.4rem, 1.8vw, 1.7rem); 
+}
+
+/* ======================================================= */
+/* 4. CONTENT LAYOUT & RESEARCH GRID CENTERING */
+/* ======================================================= */
+
+/* General Content Centering */
+/* This rule is now used by the index.html */
+main.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; 
+}
+
+/* Ensure the grid itself is centered and spaced correctly */
+#publications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px; 
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+/* ======================================================= */
+/* 5. DYNAMIC RESEARCH GRID STYLING */
+/* ======================================================= */
+
+.publication-card {
+    display: flex;
+    flex-direction: column;
+    height: auto; 
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s, transform 0.3s;
+    position: relative; 
+}
+
+.publication-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.card-content {
+    padding: 15px;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: var(--quarto-primary-color);
+}
+
+.card-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* --- ABSTRACT HOVER STYLING --- */
+
+.abstract-preview {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    
+    /* Initially hide or truncate text */
+    max-height: 3.8em; 
+    overflow: hidden;
+    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    transition: all 0.5s ease-in-out; 
+}
+
+/* Rule to trigger expansion on card hover */
+.publication-card:hover .abstract-preview {
+    max-height: 300px; /* Expands to show full abstract */
+    mask-image: none; 
+    overflow-y: auto; 
+}
+
+/* Final cleanup for unstyled card links */
+.publication-card-link,
+.publication-card-link:hover {
+    text-decoration: none !important;
+    color: inherit; 
+}
+
+
+/* ======================================================= */
+/* 6. SOCIAL/CONTACT LINKS (BOTTOM OF PAGE) */
+/* ======================================================= */
+
+.social-links {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd; 
+}
+
+.social-links a {
+    color: var(--quarto-primary-color) !important; 
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 400;
+    padding: 0 15px; 
+    transition: color 0.2s ease;
+    white-space: nowrap; 
+}
+
+.social-links a:hover {
+    color: var(--quarto-secondary-color) !important; 
+}
+
+.social-links i {
+    color: var(--quarto-primary-color); 
+    margin-right: 5px;
+    font-size: 1.15rem; 
+}
+
+/* ======================================================= */
+/* 7. PEOPLE PAGE STYLING (EXPAND-IN-PLACE) */
+/* ======================================================= */
+
+/* 1. Base Card Definition (Smaller initial size) */
+.team-member {
+    width: 240px; 
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    
+    transition: all 0.4s ease-in-out; 
+    overflow: hidden; 
+    
+    position: relative; 
+    z-index: 1;
+    
+    /* CRITICAL FAIL-SAFE FOR CENTERING LAST ROW */
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* 2. Hover Expansion (Simple Scale and Width Growth—No Position Change) */
+.team-member:hover {
+    /* Set a large, fixed size for the expanded card */
+    width: 400px; 
+    height: auto; 
+    max-height: 90vh; /* Don't exceed screen height */
+    transform: scale(1.1) translateY(-10px); 
+    z-index: 10; /* Lifts the card above neighbors */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); 
+    background-color: #ffffff;
+    
+    overflow-y: hidden; 
+}
+
+/* 3. Background Darkening Effect (Removed) */
+main:has(.team-member:hover) > * {
+    filter: none; 
+    pointer-events: auto;
+}
+
+/* --- Hidden Content Styling --- */
+.hidden-bio-content {
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.4s ease-in-out 0.1s; 
+    padding-top: 0;
+    text-align: left;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+/* Content Reveal on Hover */
+.team-member:hover .hidden-bio-content {
+    max-height: 800px; /* Expands content */
+    opacity: 1; 
+    padding-top: 20px;
+}
+
+/* --- Sub-Styles for People Page --- */
+
+.team-grid {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 25px; /* Reduced gap size */
+    max-width: 850px; 
+    margin: 0 auto 50px auto; /* Centers the container itself */
+    
+    /* Ensure internal items align to the top */
+    align-items: flex-start; 
+}
+.profile-link {
+    display: block;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px auto;
+    position: relative;
+    border-radius: 50%; 
+    overflow: hidden; 
+    border: 4px solid var(--quarto-secondary-color); 
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.hover-img {
+    opacity: 0;
+}
+
+.profile-link:hover .default-img {
+    opacity: 0;
+}
+
+.profile-link:hover .hover-img {
+    opacity: 1;
+}
+
+.team-member h3 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: var(--quarto-primary-color);
+}
+.team-member .role {
+    font-weight: 600;
+    color: #666;
+    font-style: italic;
+}
+.team-member .member-link i {
+    font-size: 1.5rem;
+    margin: 10px 5px;
+    color: var(--quarto-primary-color);
+}
+/* ======================================================= */
+/* 8. PROJECTS PAGE STYLING (FEATURE CARDS) */
+/* ======================================================= */
+
+.project-cards-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.project-feature-card {
+    display: flex;
+    align-items: stretch; /* Ensures columns stretch to full height */
+    margin-bottom: 50px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+    background-color: #fff;
+}
+
+.project-feature-card:hover {
+    transform: translateY(-8px); /* Lift card on hover */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.project-text-content {
+    padding: 30px;
+    flex: 60%; /* Takes 60% of the space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-image-content {
+    flex: 40%; /* Takes 40% of the space */
+    overflow: hidden;
+}
+
+.project-feature-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills container without distortion */
+}
+
+/* --- Reversed Card Layout --- */
+.project-feature-card.reversed {
+    flex-direction: row-reverse; /* Flips image and text order */
+}
+
+/* --- Content Styling --- */
+
+.card-title-lg {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--quarto-primary-color);
+    margin-bottom: 10px;
+}
+
+.card-status {
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+.status-active {
+    color: green;
+}
+.status-data {
+    color: #e9a33d; /* Secondary accent color */
+}
+.status-new {
+    color: red;
+}
+
+
+/* ================================ */
+/* 9. DYNAMIC RESEARCH GRID STYLING */       
+/* ================================ */
+
+.dynamic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* ======================================================= */
+/* 10. FLOATING CATEGORY FILTER BAR (STICKY VERSION) */
+/* ======================================================= */
+
+.publication-filter-sidebar {
+    position: sticky;  /* Makes the sidebar sticky */
+    top: 20px;         /* Stick 20px from the top when scrolling */
+    width: 220px; 
+    flex-shrink: 0;    /* This prevents the sidebar from shrinking */
+    
+    /* Your original styling below is unchanged */
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 50; 
+}
+
+/* These sub-styles are all unchanged */
+#category-list a.active-filter {
+    color: var(--quarto-primary-color);
+    font-weight: 800;
+    border-left: 3px solid var(--quarto-secondary-color);
+    padding-left: 8px; 
+}
+.sidebar-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--quarto-primary-color);
+    border-bottom: 2px solid var(--quarto-secondary-color);
+    padding-bottom: 5px;
+}
+#category-list a {
+    display: block;
+    padding: 4px 0;
+    font-size: 0.9rem;
+    color: var(--bs-body-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+#category-list a:hover {
+    color: var(--quarto-secondary-color);
+    font-weight: 600;
+}
+#category-list a.active-filter {
+    color: var(--quarto-primary-color);
+    font-weight: 800;
+}
+
+
+/* ======================================================= */
+/* 11. FAQ ACCORDION STYLING */
+/* ======================================================= */
+
+.custom-accordion {
+    width: 100%;
+    max-width: 900px; /* Constrain width for readability */
+    margin: 0 auto;
+    border: none !important;
+}
+
+.accordion-item {
+    margin-bottom: 10px;
+    border: 1px solid var(--quarto-primary-color); /* Navy border */
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.accordion-button {
+    background-color: #f8f8f8; /* Light gray background for question */
+    color: var(--bs-body-color); 
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 15px 20px;
+    background-color: transparent !important; 
+}
+.accordion-button:not(.collapsed) {
+    background-color: var(--quarto-primary-color) !important; 
+    color: white !important; 
+    box-shadow: none !important; 
+}
+.accordion-button:focus:not(.collapsed),
+.accordion-button:focus {
+    outline: 0 !important; 
+    box-shadow: none !important; 
+    background-color: var(--quarto-primary-color) !important; 
+}
+.accordion-button:not(.collapsed) {
+    background-color: var(--quarto-primary-color) !important; 
+    color: white !important;
+}
+.accordion-button.collapsed {
+    background-color: #f8f8f8 !important; 
+    color: var(--bs-body-color) !important; 
+    box-shadow: none !important;
+}
+.accordion-body {
+    background-color: white;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.0rem;
+    color: #555;
+    border-top: 1px solid #eee;
+}
+.accordion-body a {
+    color: var(--quarto-secondary-color) !important; 
+}
+
+/* ======================================================= */
+/* 12. LAB NEWS TIMELINE STYLING */
+/* ======================================================= */
+
+.news-timeline-container {
+    width: 100%;
+    max-width: 800px; /* Constrain for readability */
+    margin: 0 auto;
+    position: relative;
+    padding-left: 20px; /* Space for the line */
+}
+
+.news-timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--quarto-primary-color);
+}
+.news-item {
+    display: flex;
+    margin-bottom: 40px;
+    position: relative;
+    padding-left: 40px; /* Space for the dot */
+}
+.news-item::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: -18px; /* Position dot over the main vertical line */
+    width: 14px;
+    height: 14px;
+    background: var(--quarto-secondary-color);
+    border: 3px solid var(--quarto-primary-color);
+    border-radius: 50%;
+    z-index: 2;
+}
+.news-date {
+    display: block;
+    width: 150px;
+    min-width: 150px; /* Ensure date column is fixed width */
+    font-weight: 700;
+    color: var(--quarto-primary-color);
+    font-size: 0.9rem;
+    margin-top: 8px;
+    text-align: right;
+    padding-right: 20px;
+}
+.news-content-box {
+    flex-grow: 1;
+    border-left: 1px solid #ddd;
+    padding-left: 20px;
+    text-align: left;
+}
+.news-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--bs-body-color);
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.news-content-box p {
+    font-size: 1.0rem;
+    color: #555;
+}
+
+/* ======================================================= */
+/* 13. INDEX PAGE - SPLIT LAYOUT */
+/* ======================================================= */
+
+.about-split-section {
+    display: flex;
+    flex-wrap: wrap; /* This will make it stack on mobile */
+    align-items: center; /* Vertically center content */
+    max-width: 1200px; /* Match your main container width */
+    width: 100%;
+    margin-top: 40px; /* Give space from header */
+    margin-bottom: 60px; /* Space before "Numbers" */
+    border: 1px solid #eee;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden; /* Important for border-radius */
+}
+
+.about-video-column {
+    flex: 1; /* Take up 50% */
+    min-width: 300px; /* Minimum width before wrapping */
+    height: 500px; /* Fixed height for the video area */
+    position: relative;
+    background-color: #333; /* Fallback */
+}
+
+.about-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill the container, may crop */
+}
+
+.about-text-column {
+    flex: 1; /* Take up 50% */
+    min-width: 300px;
+    padding: 40px 50px; /* Generous padding */
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; 
+}
+.hero-btn-primary,
+.hero-btn-secondary {
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.hero-btn-primary {
+    background-color: var(--quarto-secondary-color);
+    color: var(--bs-body-color);
+    border: 2px solid var(--quarto-secondary-color);
+}
+.hero-btn-primary:hover {
+    background-color: transparent;
+    color: var(--quarto-secondary-color);
+    transform: translateY(-2px);
+}
+.hero-btn-secondary {
+    background-color: transparent;
+    color: var(--quarto-primary-color); /* Changed for light bg */
+    border: 2px solid var(--quarto-primary-color);
+}
+.hero-btn-secondary:hover {
+    background-color: var(--quarto-primary-color);
+    color: white; 
+    transform: translateY(-2px);
+}
+
+/* ======================================================= */
+/* 14. LAB IMPACT/NUMBERS SECTION STYLING */
+/* ======================================================= */
+
+.lab-impact-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 50px auto 80px auto;
+}
+
+.section-title-sub {
+    font-size: 1.8rem;
+    width: 100%;
+    grid-column: 1 / -1; 
+    margin-bottom: 30px;
+    color: var(--bs-body-color);
+    text-align: center;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.impact-card {
+    text-align: center;
+    padding: 25px 15px;
+    border: 1px solid var(--quarto-secondary-color); /* Gold border */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    transition: transform 0.3s;
+}
+
+.impact-card:hover {
+    transform: translateY(-5px);
+}
+
+.impact-card i {
+    font-size: 2.5rem;
+    color: var(--quarto-primary-color);
+    margin-bottom: 10px;
+}
+
+.impact-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--quarto-primary-color);
+    line-height: 1;
+}
+
+.impact-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* ======================================================= */
+/* 15. ACTIVITY HUB LAYOUT AND STYLING */
+/* ======================================================= */
+
+.activity-page-layout {
+    display: flex; 
+    justify-content: space-between;
+    align-items: flex-start; 
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px; 
+    margin: 30px auto;
+}
+.activity-timeline {
+    flex: 2; 
+    position: relative; 
+    padding-left: 20px;
+}
+.activity-timeline h2 {
+    font-size: 1.8rem;
+    color: var(--quarto-primary-color);
+    border-bottom: 2px solid var(--quarto-secondary-color);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+.activity-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1px; 
+    width: 3px;
+    height: 100%;
+    background: var(--quarto-primary-color);
+}
+.event-entry {
+    display: flex;
+    margin-bottom: 30px;
+    border-left: 3px solid transparent; 
+    padding-left: 20px; 
+    position: relative;
+}
+.event-entry::before {
+    content: '';
+    position: absolute;
+    left: -8px; 
+    top: 8px;
+    width: 15px;
+    height: 15px;
+    background: var(--quarto-secondary-color); 
+    border: 3px solid white; 
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 2px var(--quarto-primary-color); 
+}
+.event-date {
+    font-size: 1.0rem;
+    font-weight: 800;
+    color: var(--quarto-primary-color);
+    width: 110px; 
+    flex-shrink: 0;
+    padding-top: 5px;
+    text-align: right;
+    margin-right: 20px;
+}
+.event-details {
+    flex-grow: 1;
+    text-align: left;
+}
+.event-title {
+    font-size: 1.25rem; 
+    font-weight: 700;
+    color: var(--bs-body-color);
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.event-location {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #888;
+    margin-bottom: 5px;
+}
+.event-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--quarto-primary-color);
+    text-decoration: none;
+}
+.event-link:hover {
+    text-decoration: underline;
+    color: var(--quarto-secondary-color);
+}
+.collaboration-needs-box {
+    flex: 1; 
+    background-color: #f8f8f8;
+    border: 1px solid var(--quarto-primary-color);
+    border-radius: 8px;
+    padding: 25px;
+    height: fit-content; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.collaboration-needs-box h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--quarto-primary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.collaboration-needs-box ul {
+    list-style: disc;
+    padding-left: 20px;
+    font-size: 1.0rem;
+}
+
+
+/* ======================================================= */
+/* 16. RESPONSIVENESS AND MOBILE FIXES (Was 15) */
+/* ======================================================= */
+
+@media (max-width: 900px) {
+    /* Stacks the two-column layout */
+    .publications-layout-wrapper {
+        flex-direction: column; 
+    }
+    .publication-filter-sidebar {
+        position: relative; /* Un-sticks it */
+        top: auto;
+        width: 100%; /* Makes it full-width */
+        margin-bottom: 30px; /* Adds space below it */
+    }
+}
+
+@media (max-width: 768px) {
+    /* --- FIX 1: NAVIGATION BAR --- */
+    .custom-navbar {
+        /* Allow content to stack vertically */
+        flex-direction: column; 
+        min-height: auto;
+        height: auto;
+        padding: 15px 10px 5px 10px; /* Reduced vertical padding */
+    }
+
+    /* Fix logo positioning */
+    .brand-center {
+        position: relative; 
+        transform: none;
+        left: auto;
+        order: -1; /* Move logo to the very top */
+        margin-bottom: 5px;
+    }
+
+    /* Fix link grouping */
+    .nav-links-left, .nav-links-right {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* This makes the 50/50 split stack vertically */
+    .about-split-section {
+        flex-direction: column;
+        margin-top: 20px; /* Reduce top margin */
+    }
+    .about-video-column {
+        height: 300px; /* Reduce video height on mobile */
+    }
+    .about-text-column {
+        padding: 30px 25px; /* Reduce padding */
+    }
+
+    /* --- FIX 3: ALL GRIDS TO SINGLE COLUMN --- */
+    .dynamic-grid, 
+    .team-grid,
+    .impact-grid,
+    .group-focus-section {
+        grid-template-columns: 1fr; /* Force single column on mobile */
+        gap: 20px;
+        max-width: 95%; /* Use almost full width */
+    }
+
+    /* Fix for 3-Column Focus section title */
+    .group-focus-section .section-title-sub {
+        grid-column: 1 / -1;
+    }
+    
+    /* Center the individual cards */
+    .publication-card, .team-member {
+        width: 100% !important; 
+        max-width: 95vw;
+        height: auto !important; /* Let content define height */
+    }
+
+    /* Remove fixed height on card images */
+    .card-image {
+        height: 150px !important;
+    }
+  
+}
+
+/* ======================================================= */
+/* 17. INDEX PAGE - ABOUT BOX STYLES */
+/* ======================================================= */
+
+/* This styles the "About the Group" title */
+.about-title {
+  font-family: 'Montserrat', sans-serif; /* Your heading font */
+  font-size: 2.2rem; /* A bit larger */
+  font-weight: 700;
+  color: var(--bs-body-color); /* Your existing body color */
+  text-align: left;
+  margin-bottom: 10px; /* Tighter margin for the subhead */
+}
+
+/* This styles the "Principal Investigator" subheading */
+.about-subheading {
+  font-family: 'Source Sans 3', sans-serif; /* Your body font */
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #555; /* A slightly lighter grey */
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 25px; /* Adds space before the paragraph */
+}
+
+/* ======================================================= */
+/* 13.5. PUBLICATION PAGE - 2-COLUMN LAYOUT */
+/* ======================================================= */
+
+.publications-layout-wrapper {
+    display: flex;
+    align-items: flex-start; /* Aligns grid and sidebar to the top */
+    gap: 30px; /* Creates the space between the two columns */
+    width: 100%; /* Ensure it spans the full width of the container */
+}
+
+/* This targets the grid *inside* the new wrapper */
+.publications-layout-wrapper > #publications-grid {
+    flex: 1; /* Allows the grid to take up remaining space */
+    min-width: 0; /*   Prevents overflow issues in flexbox */
+    
+    /* These reset the rules from Section 4 so it works in flexbox */
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: none;
+}
+
+/* This targets the grid from Section 9 (a duplicate) */
+.publications-layout-wrapper > .dynamic-grid {
+    margin-top: 0;
+}
+
+/* ======================================================= */
+/* 18. CLICK-TO-EXPAND NEWS TIMELINE */
+/* ======================================================= */
+
+/* Re-style the <details> element to be our "news-item" */
+.news-item {
+    display: block; /* Use block for <details> element */
+    margin-bottom: 20px; /* Was 40px, reduced for cleaner look */
+    position: relative;
+    padding-left: 40px; 
+}
+
+/* This is the timeline dot (unchanged from your original) */
+.news-item::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: -18px; 
+    width: 14px;
+    height: 14px;
+    background: var(--quarto-secondary-color);
+    border: 3px solid var(--quarto-primary-color);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* This is the clickable <summary> part */
+.news-summary {
+    display: flex;
+    cursor: pointer;
+    list-style: none; /* Hide default <summary> arrow/marker */
+}
+
+/* Hide the default marker in Webkit browsers */
+.news-summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Keep the original date and content-box layout.
+  We just put them inside the <summary> tag.
+*/
+.news-summary .news-date {
+    display: block;
+    width: 150px;
+    min-width: 150px;
+    font-weight: 700;
+    color: var(--quarto-primary-color);
+    font-size: 0.9rem;
+    margin-top: 8px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.news-summary .news-content-box {
+    flex-grow: 1;
+    /* border-left: 1px solid #ddd; */ /* <-- DELETE THIS LINE */
+    padding-left: 20px;
+    text-align: left;
+}
+
+.news-summary .news-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--bs-body-color);
+    margin-top: 0;
+    margin-bottom: 5px;
+    transition: color 0.2s;
+}
+
+/* Change title color on hover to show it's clickable */
+.news-summary:hover .news-title {
+    color: var(--quarto-secondary-color);
+}
+
+/* This is the "summary card" content that expands */
+.news-expanded-content {
+    margin-left: 170px; 
+    padding: 20px 0 10px 20px;
+    /* border-left: 1px solid #ddd; */ /* <-- DELETE THIS LINE */
+    font-size: 1.0rem;
+    color: #555;
+}
+
+.news-link {
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    color: var(--bs-body-color);
+    background-color: var(--quarto-secondary-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.news-link:hover {
+    background-color: var(--quarto-primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ======================================================= */
+/* 19. SIMPLE POST TEMPLATE STYLES */
+/* ======================================================= */
+
+/* Container for the simple post page */
+.post-container {
+    max-width: 800px; /* Good width for reading */
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+.post-container .post-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--quarto-primary-color);
+    margin-bottom: 10px;
+}
+
+.post-container .post-meta {
+    font-size: 1.0rem;
+    font-style: italic;
+    color: #777;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+/* Default paragraph text */
+.post-container p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* Subheadings within the post */
+.post-container h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--bs-body-color);
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+/* Simple, flexible image styling */
+.post-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.post-image-caption {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #888;
+    margin-top: -10px;
+    margin-bottom: 25px;
+}

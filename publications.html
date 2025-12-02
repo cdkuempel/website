@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr Caitie Kuempel - Publications</title>
+    
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="global-header-placeholder"></div>
+
+    <main class="container mt-5">
+        <h1 class="text-center mb-5" style="font-size: 2.5rem; color: var(--quarto-primary-color);">Publication Archive</h1>
+        
+        <div class="archive-intro-text text-center mb-5">
+            <p>This archive contains all peer-reviewed articles and preprints produced by the lab, organized for easy filtering by research topic. For full citation details, visit our 
+            <a href="httpsD://scholar.google.com/citations?user=nE8IeT4AAAAJ" target="_blank">
+                <i class="fa-solid fa-graduation-cap"></i> Google Scholar Profile
+            </a>. Data and code for many of these papers are publicly available on 
+            <a href="httpsD://github.com/cdkuempel" target="_blank">
+                <i class="fa-brands fa-github"></i> GitHub
+            </a>.</p>
+        </div>
+        
+        <div class="publications-layout-wrapper">
+
+            <div id="publications-grid" class="dynamic-grid">
+                </div>
+
+            <div id="filter-sidebar" class="publication-filter-sidebar">
+                <h4 class="sidebar-title">Filter by Topic</h4>
+                <div id="category-list">
+                    </div>
+            </div>
+
+        </div> </main>
+
+    <script>
+    // --- 1. EMBEDDED PUBLICATION DATA ---
+    
+    //  Example publication entry
+    //      {
+    //          "id": "adams_2023", // unique identifier
+    //          "title": "Multiple-use protected areas are critical to equitable and effective conservation", //  title of the publication
+    //          "authors": "Adams, Cahuvenet, Stoudmann, Gurney...", // list of authors
+    //          "date": "September 15, 2023", // publication date
+    //          "image": "adams_2023.png", // image filename located in publications/ folder
+    //          "abstract": "Given their substantial contributions to meeting area-based targets, we review evidence of multiple-use protected areas in meeting global policy goals. We found that multiple-use and other protected areas provide important environmental and socio-economic benefits that are needed to achieve the 2030 target.", // abstract or summary
+    //          "external_link": "https://doi.org/10.1038/s41586-023-06687-3", // link to the full publication
+    //          "categories": ["MPA", "Conservation Planning"] // list of categories/tags for filtering, the category list will autoupdate with only the categories found here (across all the cards)
+    //      }, // this comma is needed for all but last entry
+
+
+
+        const publicationData = [
+          {
+            "id": "Nelson_2016",
+            "title": "The resilience of reef invertebrate biodiversity to coral mortality",
+            "authors": "Nelson, Kuempel, Altieri",
+            "date": "July 15, 2016",
+            "image": "nelson_2016.png",
+            "abstract": "We surveyed coral reef invertebrates along a gradient of healthy to degraded coral reefs off the Caribbean coast of Panama to assess invertebrate biodiversity.",
+            "external_link": "https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecs2.1399",
+            "categories": ["Ecology"]
+        },
+        {
+            "id": "Kuempel_2016",
+            "title": "Equitable representation of ecoregions is slowly improving despite strategic planning shortfalls",
+            "authors": "Kuempel, Chauvenet, Possingham",
+            "date": "September 28, 2016",
+            "image": "Kuempel_2016.png",
+            "abstract": "This paper explores how the evenness of habitat representation within protected areas has changed through time.",
+            "external_link": "https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/conl.12298",
+            "categories": ["Conservation planning"]
+        },
+        {
+         "id": "Kuempel_2016",
+            "title": "The emergent role of small-bodied herbivores in pre-empting phase shifts on degraded coral reefs",
+            "authors": "Kuempel and Altieri",
+            "date": "January 5, 2017",
+            "image": "kuempel_2017_2.JPG",
+            "abstract": "We developed a series of field surveys and experiments to explore why algal growth was being surprised on coral reefs off the Caribbean coast of Panama. We found that the abundance of small-bodied herbivores was high enough to control algal growth and prevent algal dominance.",
+            "external_link": "https://www.nature.com/articles/srep39670",
+            "categories": ["Ecology"]
+        },
+        {
+         "id": "Chauvenet_2017",
+            "title": "Methods for calculating Protection Equality for conservation planning",
+            "authors": "Chauvenet, Kuempel, McGowan, Beger, Possingham",
+            "date": "February 15, 2017",
+            "image": "chauvenet_2017.png",
+            "abstract": "We developed the ProtectEqual R package to easily implement the protection equality metric. This metric measures the evennes of habitat representation in protected areas. To install the package use devtools::install_github(“AChauvenet/ProtectEqual”)",
+            "external_link": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0171591",
+            "categories": ["Conservation planning"]
+        },
+        {
+         "id": "Campbell_2017",
+            "title": "Herbivore community determines the magnitude and mechanism of nutrient effects on subtropical and tropical seagrasses",
+            "authors": "Campbell, Altieri, Johnston, Kuempel, Paperno, Paul, Duffy",
+            "date": "August 10, 2017",
+            "image": "campbell_2017.png",
+            "abstract": "We looked at nutrient and herbivore dynamics across a latitudinal gradient in Flora, Belize and Panama.",
+            "external_link": "https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/1365-2745.12862",
+            "categories": ["Ecology"]
+        },
+        {
+         "id": "Kuempel_2017b",
+            "title": "Bigger or better: The relative benefits of protected area network expansion and enforcement for the conservation of an exploited species",
+            "authors": "Kuempel, Adams, Possingham, Bode",
+            "date": "December 9, 2017",
+            "image": "kuempel_2017.png",
+            "abstract": "In this paper, we developed a theoretical model to understand whether it is better to increase management in existing protected areas or expand the protected area network to conserve an exploited species.",
+            "external_link": "https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/conl.12433",
+            "categories": ["Conservation planning"]
+        },
+        {
+         "id": "Jones_2018",
+            "title": "The location and protection status of Earth’s diminishing marine wilderness",
+            "authors": "Jones, Klein, Halpern, Venter, Grantham, Kuempel, Shumway, Friedlander, Possingham, Watson",
+            "date": "August 6, 2018",
+            "image": "jones_2018.jpeg",
+            "abstract": "In this paper we identify “marine wilderness”, or relatively undisturbed areas of the ocean, based on cumulative human footprint data and it’s level of protection.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S0960982218307723",
+            "categories": ["Conservation planning"]
+        },
+         {
+         "id": "Jantke_2018",
+            "title": "Metrics for evaluating representation target achievement in protected area networks",
+            "authors": "Jantke, Kuempel, McGowan, Chauvenet, Possingham",
+            "date": "October 4, 2018",
+            "image": "jantke_2018.png",
+            "abstract": "The metrics in this paper have been adopted by the European Comission Digital Observatory for Protected Areas to measure representation achievement.",
+            "external_link": "https://onlinelibrary.wiley.com/doi/full/10.1111/ddi.12853",
+            "categories": ["Conservation planning"]
+        },
+        {         "id": "Kuempel_2019",
+            "title": "Quantifying biases in marine protected area placement relative to abatable threats",
+            "authors": "Kuempel, Jones, Watson, Possingham",
+            "date": "March 13, 2019",
+            "image": "kuempel_2019.png",
+            "abstract": "We quantified marine protected area establishment relative to abatable threats (i.e., threats that MPAs can stop, like fishing). We found that most of the global MPA network avoids abatable threats and discuss the conservation implications.",
+            "external_link": "https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/cobi.13340",
+            "categories": ["Conservation planning"]
+        },
+          {         "id": "Halpern_2019",
+            "title": "Putting all foods on the same table: Achieving sustainable food systems requires full accounting",
+            "authors": "Halpern, Cottrell, Blanchard, Bouwman, Forhelich, Gephart, Jacobsen, Kuempel, McIntyre, Metian, Moran, Nash, Tobben, Williams",
+            "date": "September 10, 2019",
+            "image": "halpern_2019.png",
+            "abstract": "Here we present an opinion piece on the importance of accounting for all food systems and pressures for understanding the true environmental impact of food production, and subsequent sustainability implications.",
+            "external_link": "https://www.pnas.org/doi/abs/10.1073/pnas.1913308116",
+            "categories": ["Food systems"]
+        },
+        { "id": "Daigle_2019",
+            "title": "Operationalizing ecological connectivity in spatial conservation planning with Marxan Connect",
+            "authors": "Daigle, Metaxas, Balbar, McGowan, Treml, Kuempel, Possingham, Beger",
+            "date": "December 18, 2019",
+            "image": "daigle_2019.png",
+            "abstract": "In this paper, we introduce Marxan Connect - a spatial prioritisation tool for incorporating connectivity into spatial planning.",
+            "external_link": "https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13349",
+            "categories": ["Conservation planning"]
+        },
+        { "id": "Kuempel_2020",
+            "title": "Evidence-based guidelines for prioritizing investments to meet international conservation objectives",
+            "authors": "Kuempel, Chauvenet, Possingham, Adams",
+            "date": "January 24, 2020",
+            "image": "kuempel_2020_2.jpg",
+            "abstract": "In this paper, we review recent advances in evidence-based guidelines for meeting international conservation targets - such as whether to restore or protect habitats and whether to expand or enforce protected areas.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S2590332219302726",
+            "categories": ["Conservation planning"]
+        },
+            { "id": "Chauvenet_2020",
+            "title": "To achieve big wins for terrestrial conservation, prioritize protection of ecoregions clostest to meeting targets",
+            "authors": "Chauvenet, Watson, Adams, Di Marco, Venter, Davis, Mapping, Klein, Kuempel, Possingham",
+            "date": "May 22, 2020",
+            "image": "chauvenet_2020.png",
+            "abstract": "We explored strategies for ecoregional protection to meet the Convention on Biological Diversity Aichi Target of protecting 17% of terrestrial areas. We found protecting ecoregions closes to the 17% target was the most efficient strategy.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S2590332220302001",
+            "categories": ["Conservation planning"]
+        },
+        { "id": "Kuempel_2020",
+            "title": "Integrating life cycle and impact assessments to map food’s cumulative environmental footprint",
+            "authors": "Kuempel, Frazier, Nash, Jacobsen, Williams, Blanchard, Cottrell, McIntyre, Moran, Bouwman, Forhelich, Gephart, Metian, Tobben, Halpern",
+            "date": "July 24, 2020",
+            "image": "kuempel_2020.jpg",
+            "abstract": "This paper presents a methodology for integrating life-cycle assessments with impact mapping to quantify and map the cumulative pressure of food production.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S2590332220303031",
+            "categories": ["Food systems", "Cumulative impacts"]
+        },
+        { "id": "Adams_2021",
+            "title": "Scheduling incremental actions to build a comprehensive national protected area network for Papua New Guinea",
+            "authors": "Adams, Dimitrova, Possingham, Allan, Kuempel, Peterson, Kaiye, Keako, Tulloch",
+            "date": "December 8, 2020",
+            "image": "adams_2020.jpeg",
+            "abstract": "This paper explored challenges and opportunities of scheduling marine protected area implementation in Papua New Guinea",
+            "external_link": "https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/csp2.354",
+            "categories": ["Conservation planning"]
+        },
+            { "id": "Cottrell_2021",
+            "title": "Time to rethink tropic levels in aquaculture policy",
+            "authors": "Cottrell, Metian, Froehlich, Blanchard, Jacobsen, McIntyre, Nash, Williams Bouwman, Gephart, Kuempel, Moran, Troell, Halpern",
+            "date": "January 8, 2021",
+            "image": "cottrell_2021.png",
+            "abstract": "We explored how the trophic level of farmed species has shifted in recent years due to feed composition - and implications of this in using trophic level as a sustainability measure.",
+            "external_link": "https://onlinelibrary.wiley.com/doi/full/10.1111/raq.12535",
+            "categories": ["Food systems"]
+        },
+            { "id": "Kuempel_2021",
+            "title": "An informed thought experiment exploring the potential for a paradigm shift in aquatic food production",
+            "authors": "Kuempel, Froehlich, Halpern",
+            "date": "February 16, 2021",
+            "image": "kuempel_2021_3.jpeg",
+            "abstract": "In this work, we developed a thought experiment to compare the shift from hunting and gathering on land to the potential shift from fishing to fish farming in sea. We discuss similarities and differences which may impact a complete transition to aquaculture in the future.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S0964569121000594",
+            "categories": ["Food systems"]
+        },
+            { "id": "Suarez_2021",
+            "title": "Global forest restoration opportunities to foster coral reef conservation",
+            "authors": "Saurez-Castro, Beyer, Kuempel, Linke, Borrelli, Hoegh-Guldberg",
+            "date": "June 27, 2021",
+            "image": "suarez_2021.jpg",
+            "abstract": "We developed a global sediment run-off model and used this to estimate the impact of terrestrial sediment on coral reefs globally",
+            "external_link": "https://onlinelibrary.wiley.com/doi/abs/10.1111/gcb.15811",
+            "categories": ["Transboundary conservation", "Pollution"]
+        },
+         { "id": "Roberson_2021",
+            "title": "Multinational coordination required for conservation of over 90% of marine species",
+            "authors": "Roberson, Beyer, O’Hara, Watson, Dunn, Halpern, Klein, Frazier, Kuempel, Williams, Grantham, Montgomery, Kark, Runting",
+            "date": "August 5, 2021",
+            "image": "roberson_2021.png",
+            "abstract": "This work quantified the number of transboundary (i.e., crossing multiple EEZs) marine species based on aquamaps species distribution data.",
+            "external_link": "https://onlinelibrary.wiley.com/doi/abs/10.1111/gcb.15844",
+            "categories": ["Transboundary conservation"]
+        },
+         { "id": "Kuempel_2021b",
+            "title": "Predicted protected area downsizing impedes conservation progress across terrestrial ecoregions in the tropics and subtropics",
+            "authors": "Kuempel, Chauvenet, Symes, Possingham",
+            "date": "August 16, 2021",
+            "image": "kuempel_2021_2.png",
+            "abstract": "We explored how protected area downsizing impacts conservation target achievement by using the protection equality and mean target achievement metrics. We found mean target achievement always decreases with downsizing, and downsizing often occurs in underrepresented habitats which decreases protection equality.",
+            "external_link": "https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/csp2.529",
+            "categories": ["Conservation planning"]
+        },
+              { "id": "Kuempel_2021c",
+            "title": "Identifying management opportunities to combat climate, land, and marine threats across less climate exposed coral reefs",
+            "authors": "Kuempel, Tulloch, Giffin, Simmons, Hagger, Phua, Hoegh-Guldberg",
+            "date": "November 3, 2021",
+            "image": "kuempel_2021_4.png",
+            "abstract": "We used the marine cumulative human footprint data to assess major threats to coral reefs that have been identified as being less exposed to climate change. We then reviewed common management practices and policies to explore the potential commitment of each country in reducing these threats.",
+            "external_link": "https://conbio.onlinelibrary.wiley.com/doi/full/10.1111/cobi.13856",
+            "categories": ["Cumulative impacts", "Coral reefs"]
+        },
+            { "id": "Williams_2022",
+            "title": "Global rarity of intact coastal regions",
+            "authors": "Williams, Watson, Beyer, Klein, Montgomery, Runting, Roberson, Halpern, Grantham, Kuempel, Frazier, Venter, Wenger",
+            "date": "August 6, 2022",
+            "image": "williams_2021.jpg",
+            "abstract": "We describe a method for combining terrestrial and marine cumulative impact maps. We then use this to identify coastal areas with relatively less human impact globally.",
+            "external_link": "https://conbio.onlinelibrary.wiley.com/doi/abs/10.1111/cobi.13874",
+            "categories": ["Cumulative impacts", "Transboundary conservation"]
+        },
+         { "id": "Kuempel_2022",
+            "title": "Assessing the status of existing and tentative marine World Heritage areas reveals opportunities to better achieve World Heritage convention goals",
+            "authors": "Kuempel, Simmons, Davey",
+            "date": "February 15, 2022",
+            "image": "WHA_Infographic.png",
+            "abstract": "We assessed representation and human impacts within the marine, natural World Heritage Area network to identify gaps and future priorities for World Heritage Convention listing.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S0301479721023380",
+            "categories": ["Cumulative impacts"]
+        },
+         { "id": "Clawson_2022",
+            "title": "Mapping the spatial distribution of global mariculture production",
+            "authors": "Clawson, Kuempel, Frazier, Blasco, Cottrell, Froehlich, Metian, Nash, Tobben, Verstaen, Williams, Halpern",
+            "date": "May 15, 2022",
+            "image": "clawson_2022.png",
+            "abstract": "We combined existing and modeled data to produce the first global map of marine aquaculture.",
+            "external_link": "id.elsevier.com/as/authorization.oauth2?platSite=SD%2Fscience&additionalPlatSites=GH%2Fgeneralhospital%2CMDY%2Fmendeley%2CSC%2Fscopus%2CRX%2Freaxys&scope=openid%20email%20profile%20els_auth_info%20els_idp_info%20els_idp_analytics_attrs%20urn%3Acom%3Aelsevier%3Aidp%3Apolicy%3Aproduct%3Ainst_assoc&response_type=code&redirect_uri=https%3A%2F%2Fwww.sciencedirect.com%2Fuser%2Fidentity%2Flanding&authType=SINGLE_SIGN_IN&prompt=none&client_id=SDFE-v4&state=retryCounter%3D0%26csrfToken%3De6bfa3a3-911f-436f-aa08-67b60f4c7f3d%26idpPolicy%3Durn%253Acom%253Aelsevier%253Aidp%253Apolicy%253Aproduct%253Ainst_assoc%26returnUrl%3D%252Fscience%252Farticle%252Fpii%252FS004484862200182X%26prompt%3Dnone%26cid%3Darp-0175ec9b-49b3-4388-aa36-d5f4f09d5205",
+            "categories": ["Food systems"]
+        },
+            { "id": "Almaraz_2022",
+            "title": "The impact of excessive protein consumption on human wastewater nitrogen loading of US waters",
+            "authors": "Almaraz, Kuempel, Salter, Halpern",
+            "date": "October 2022",
+            "image": "almaraz.jpg",
+            "abstract": "Nitrogen is a waste product of protein consumption that can impact the environment. We quantified how reducing protein consumption to recommended rates may reduce nitrogen loading in the United States.",
+            "external_link": "https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/fee.2531",
+            "categories": ["Transboundary conservation", "Pollution"]
+        },
+            { "id": "Beger_2022",
+            "title": "Demystifying ecological connectivity for actional spatial conservation planning",
+            "authors": "Beger, Metaxas, Balbar, McGowan, Daigle, Kuempel, Treml, Possingham",
+            "date": "December 2022",
+            "image": "beger_2022.png",
+            "abstract": "There is a disconnect between global high-level conservation goals and onthe-ground actions such as maintaining ecosystem services or planning for protected areas, particularly for connectivity goals. We show how connectivity can be included in conservation planning objectives and connected to high-level goals.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S0169534722002221",
+            "categories": ["Conservation planning"]
+        },
+            { "id": "Klein_2022",
+            "title": "Global fishing between jurisdictions with unequal fisheries management",
+            "authors": "Klein, Kuempel, Watson, Teneva, Coll and Mora",
+            "date": "October 18, 2022",
+            "image": "klein_2022.png",
+            "abstract": "Fisheries can cause environmental degradation. These impacts can be displaced when one country fishes in another country’s waters. This may be particularly problematic when the fished country has less ability to manage it’s fisheries or marine resources than the fishiing country. We quantified the extent of “unequal” fishing displacement between countries to assess the countries who participate the most in this practice and the countries that potential are the most impacted.",
+            "external_link": "https://iopscience.iop.org/article/10.1088/1748-9326/ac97ab",
+            "categories": ["Food systems"]
+        },
+            { "id": "Hicks_2022",
+            "title": "Rights and representation support justice across aquatic food systems",
+            "authors": "Hicks, Gephart, Koehn….Kuempel..et al",
+            "date": "October 18, 2022",
+            "image": "hicks.png",
+            "abstract": "Blue foods support diets and livelihoods for billiones of people, but are unequal in their benefits. We assess economic, political and social barriers impacting participation in blue food produciton across 195 countries and found trade-offs between wealth-generating and welfare-sutaining benefits can threaten food security.",
+            "external_link": "https://www.nature.com/articles/s43016-022-00618-4",
+            "categories": ["Food systems"]
+        },
+            { "id": "Halpern_2022",
+            "title": "The environmental footprint of global food production",
+            "authors": "Halpern, Frazier, Verstaen…Kuempel, et al",
+            "date": "October 24, 2022",
+            "image": "halpern_2022.png",
+            "abstract": "We quantified pressures resulting from food production (cover 99% of food produced) including greenhouse gas emissions, freshwater use, nutrient pollution, and spatial disturbance. We then created a cumulative index to identify hotspots and relative efficiencies in production between sectors and locations.",
+            "external_link": "https://www.nature.com/articles/s41893-022-00965-x",
+            "categories": ["Food systems", "Cumulative impacts"]
+        },
+            { "id": "Wakwella_2022",
+            "title": "Managing Watersheds for Coral Reefs and Public Health: A Vibrant Oceans Initiative Whitepaper",
+            "authors": "Wakwella1, Wenger, Jupiter, Lamb, Kuempel, Jenkins, Claar, Corbin, Falinski11, Rivera, and Grantham",
+            "date": "March 2022",
+            "image": "wakwella_2022.png",
+            "abstract": "This paper presents innovative solutions that incentivize the large-scale, sustained action required to both improve water quality in watersheds and prevent water quality impacts on coral reef ecosystems. The solutions use holistic approaches to integrated watershed management that bridge social and ecological systems and provide important co-benefits to human wellbeing. Focusing on the combined economic, human health and wellbeing impacts across linked watersheds and reef areas can motivate action and leverage investment that result in co-benefits across multiple sectors. Designing appropriate solutions, therefore, requires taking a multi-sector, systems approach, that accounts for both social and ecological systems, with collaboration required across environmental, agricultural, public health, and water, sanitation and hygiene (WASH) sectors, and across the land-sea interface.",
+            "external_link": "https://repository.fnu.ac.fj/id/eprint/42/1/Managing%20Watersheds%20for%20Coral%20Reefs%20and%20Public%20Health.%20A%20Vibrant%20Oceans%20Initiative%20Whitepaper%202022.pdf",
+            "categories": ["Transboundary conservation", "Pollution"]
+        },
+            { "id": "Wenger_2023",
+            "title": "A Guide for Integrated Conservation and Sanitation Programs and Approaches",
+            "authors": "Wenger, Gómez Juárez,  Thomas,..., Kuempel, et al.",
+            "date": "2023",
+            "image": "wenger_2023.png",
+            "abstract": "The Science for Nature and People Partnership (SNAPP) Improving Coastal Health working group formed in 2020 to develop resources to help marine conservation and sanitation practitioners work together on integrated conservation and sanitation programs. Informed by the outcomes of a needs assessment launched in 2021 to better understand the challenges and opportunities related to integrated programs, we created this document as a first step towards providing advice on implementing integrated conservation and sanitation programs.",
+            "external_link": "https://research-repository.griffith.edu.au/items/79e870e4-1a0b-44fb-a879-76c7abc31115",
+            "categories": ["Transboundary conservation", "Pollution"]
+        },
+            { "id": "Kuempel_2023",
+            "title": "Feed drives land-sea overlap of the global cumulative environmental pressure of farmed chicken and salmon",
+            "authors": "Kuempel, Frazier, Verstaen, Rayner, Blanchard, Bouwman, Cottrell, Froehlich, Gephart, Jacobsen, McIntyre, Metian, Nash, Tobben, Williams, Halpern",
+            "date": "March 13, 2023",
+            "image": "kuempel_chicken_salmon_2023.png",
+            "abstract": "This paper assesses and compares the environmental footprint of farming industrial broiler chickens and farmed salmonids to identify opportunities to reduce environmental pressures. You can find an accompanying summary article in The Conversation.",
+            "external_link": "https://www.cell.com/current-biology/fulltext/S0960-9822(23)00071-4",
+            "categories": ["Food systems"]
+        },
+            { "id": "Kuempel_2023b",
+            "title": "Sedimentation sifted out of pollution priorities",
+            "authors": "Kuempel",
+            "date": "March 16, 2023",
+            "image": "kuempel_sediment_2023.png",
+            "abstract": "The Kunming-Montreal Global Biodiversity Framework (GBF) includes four goals and 23 targets to halt biodiversity loss and restore natural ecosystems by 2030 (1). The list includes goals to reduce pollution from sources such as plastics and nutrients (Target 7) but overlooks sediment—a key driver of poor water quality that threatens freshwater and marine ecosystems. To conserve aquatic environments, the global community must prioritize explicit indicators and commitments to reduce excess sediment.",
+            "external_link": "https://www.science.org/doi/full/10.1126/science.adh2147",
+            "categories": ["Pollution"]
+        },
+            { "id": "Wakwella_2023",
+            "title": "Integrated watershed management solutions for healthy coastal ecosystems and people",
+            "authors": "Wakwella, Wenger, Jenkins, Lamb, Kuempel, Claar, Carbin, Falinski, Rivera, Grantham, Jupiter",
+            "date": "May 5, 2023",
+            "image": "wakwella_2023.png",
+            "abstract": "This review summarises the evidence of impacts to coastal ecosystems, particularly coral reefs, from sediments, nutrients, chemicals and pathogens entering coastal zones through surface and groundwater. We also assess how these pollutants affect the health of coastal human populations through: (1) enhanced transmission of infectious diseases; (2) reduced food availability and nutritional deficit from decline of fisheries associated with degraded habitat; and (3) food poisoning from consumption of contaminated seafood.",
+            "external_link": "https://www.cambridge.org/core/journals/cambridge-prisms-coastal-futures/article/integrated-watershed-management-solutions-for-healthy-coastal-ecosystems-and-people/F0CB95FB6FC43C6BA9805D3409888CBB",
+            "categories": ["Pollution"]
+        },
+            { "id": "Froehlich_2023",
+            "title": "Biological life history and farming scenarios of marine aquaculture help reduce wild marine fishing pressure",
+            "authors": "Froehlich, Montgomery, Williams, O’Hara, Kuempel, Halpern",
+            "date": "August 17, 2023",
+            "image": "froehlich_2023.png",
+            "abstract": "This paper explored capture-based and domesticated auaculture based on wild seed reliance to assess which forms of aquaculture coudl support seafood production and greater wild biomass.",
+            "external_link": "https://onlinelibrary.wiley.com/doi/full/10.1111/faf.12783",
+            "categories": ["Food systems"]
+        },
+        {
+            "id": "adams_2023",
+            "title": "Multiple-use protected areas are critical to equitable and effective conservation",
+            "authors": "Adams, Cahuvenet, Stoudmann, Gurney, Brockington, Kuempel",
+            "date": "September 15, 2023",
+            "image": "adams_2023.png",
+            "abstract": "Given their substantial contributions to meeting area-based targets, we review evidence of multiple-use protected areas in meeting global policy goals. We found that multiple-use protected areas can be effective in conserving biodiversity and are more likely to be under equitable governance arrangements than their strict counterparts. Our results show that multiple-use and other protected areas provide important environmental and socio-economic benefits that are needed to achieve the 2030 target.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S2590332223003901?dgcid=author",
+            "categories": ["Conservation planning"]
+        },
+        {
+            "id": "Halpern_2023b",
+            "title": "Reply to: The environmental footprint of fisheries",
+            "authors": "Halpern, Frazier, Rayner, Clawson, Blanchard, Cottrell, Froehlich, Gephart, Jacobsen, Kuempel, Moran, Nash & Williams ",
+            "date": "September 25, 2023",
+            "image": "halpern_reply_2023.png",
+            "abstract": "This is a reply to a paper by R. Hilborn Nature Sustainability https://doi.org/10.1038/s41893-023-01222-5 (2023) that critiques our original paper The environmental footprint of global food production Nature Sustainability https://doi.org/10.1038/s41893-022-00965-x (2022). In this reply, we clarify misunderstandings and misinterpretations presented in Hilborn (2023) regarding our methods and findings, particularly for calculation of seafood environmental footprints",
+            "external_link": "https://www.nature.com/articles/s41893-023-01223-4",
+            "categories": ["Food systems"]
+        },
+        {
+            "id": "Vella_2023",
+            "title": "Quantifying the accessibility of sustainable seafood in south-eastern Queensland, Australia",
+            "authors": "Vella, Roberson, Kuempel, Klein",
+            "date": "October 4, 2023",
+            "image": "vella_2023.png",
+            "abstract": "This paper quantifies the availability and accessibility of sustainable seafood in south-eastern Queensland, Australia. We found that sustainable seafood options are limited and often inaccessible to consumers, highlighting the need for improved supply chains and consumer education to promote sustainable seafood consumption.",
+            "external_link": "https://connectsci.au/mf/article/74/15/1340/61082/Quantifying-the-accessibility-of-sustainable",
+            "categories": ["Food systems"]
+        },
+        {"id": "Kuempel_2024",
+            "title": "A spatial framework for improved sanitation to support coral reef conservation",
+            "authors": "Kuempel, Thomas, Wenger, Jupiter, Suárez-Castro, Nasim, Klein, Hoegh-Guldberg",
+            "date": "February 1, 2024",
+            "image": "kuempel_2024a.jpg",
+            "abstract": "In this paper, we develop a spatial framework to identify priority areas for improving sanitation infrastructure to reduce wastewater pollution impacting coral reefs. We integrate data on coral reef locations, wastewater discharge, and existing sanitation infrastructure to inform targeted interventions that can enhance coral reef conservation efforts.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S0269749123020055",
+            "categories": ["Pollution"]
+        },
+        {"id": "Stockbridge_2024",
+            "title": "Evaluation of potential for interaction and/or conflict among ocean users and the environment in offshore waters in Australia",
+            "authors": "Stockbridge and Kuempel",
+            "date": "June 2024",
+            "image": "stockbridge_2024.png",
+            "abstract": "This Blue Economy CRC report evaluates the potential for interaction and/or conflict among ocean users and the environment in offshore waters in Australia. The report analyzes various ocean uses, including commercial fishing, shipping, tourism, and conservation efforts, to identify areas of overlap and potential conflict. It provides recommendations for managing these interactions to promote sustainable ocean use and protect marine ecosystems.",
+            "external_link": "https://blueeconomycrc.com.au/wp-content/uploads/2024/07/BECRC_MSP_Milestone-Report-1_A4_e050724.pdf",
+            "categories": ["Conservation planning", "Offshore wind energy" ]
+        },
+        {"id": "Kuempel_2024b",
+            "title": "The Global Biodiversity Framework can be leveraged to better manage transboundary watersheds",
+            "authors": "Kuempel and Suarez-Castro",
+            "date": "June 6, 2024",
+            "image": "kuempel_2024b.jpg",
+            "abstract": "Here we discuss how the Kunming-Montreal Global Biodiversity Framework (GBF) can be used to better manage transboundary watersheds that impact coastal and marine ecosystems. We highlight relevant goals and targets within the GBF and provide recommendations for their implementation to enhance watershed management across political boundaries.",
+            "external_link": "https://www.pnas.org/doi/abs/10.1073/pnas.2310882121",
+            "categories": ["Transboundary conservation", "Pollution"]
+        },
+        {"id": "Fleury_2024",
+            "title": "Spatial and life history variation in a trait-based species vulnerability and impact model",
+            "authors": "Fleury, O’Hara, Butt, Restrepo, Halpern, Klein, Kuempel, Gaynor, Bentley, Richardson, Dunn",
+            "date": "",
+            "image": "fleury_2024.jpg",
+            "abstract": "",
+            "external_link": "",
+            "categories": ["Cumulative impacts"]
+        },
+        {"id": "Kuempel_2024c",
+            "title": "Quantifying global redundant fisheries trade to streamline seafood supply chains",
+            "authors": "Kuempel, Arnett, Klein",
+            "date": "July 10, 2024",
+            "image": "kuempel_2024c.jpg",
+            "abstract": "This paper quantifies the extent of redundant fisheries trade globally, where seafood products are exported and re-imported multiple times before reaching the final consumer. We analyze trade data to identify key patterns and inefficiencies in seafood supply chains, providing insights for streamlining operations and reducing environmental impacts associated with transportation.",
+            "external_link": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0305779",
+            "categories": ["Food systems"]
+        },
+        {"id": "Davey_2025",
+            "title": "A review of the application of coral reef condition indicators in conservation planning",
+            "authors": "Davey, Klein, Roelfsema, Kuempel, Possingham",
+            "date": "October 2025",
+            "image": "davey_2025.png",
+            "abstract": "In this paper, we review the use of coral reef condition indicators in conservation planning efforts. We assess various indicators used to evaluate coral reef health and their effectiveness in informing conservation strategies. The review highlights best practices and identifies gaps in current methodologies, providing recommendations for future research and application in coral reef conservation planning.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S1470160X25011549?via%3Dihub",
+            "categories": ["Conservation planning", "Coral reefs"]
+        },
+        {"id": "Vozzo_2025",
+            "title": "Advancing ocean sustainability through better science integration: perspectives of Early Career Ocean Professionals",
+            "authors": "Vozzo, Christofidis, Griffiths,....,Kuempel, et al.",
+            "date": "January 29, 2025",
+            "image": "vozzo_2025.png",
+            "abstract": "We present perspectives from Early Career Ocean Professionals (ECOPs) on the challenges and opportunities for integrating science to advance ocean sustainability. The article discusses barriers to effective science integration and proposes strategies to enhance collaboration among researchers, policymakers, and stakeholders in the ocean science community.",
+            "external_link": "https://www.frontiersin.org/journals/ocean-sustainability/articles/10.3389/focsu.2024.1526776/full",
+            "categories": ["Conservation planning"]
+        },
+        {"id": "Kuempel_2025",
+            "title": "Frameworks and best practices for cumulative impact accounting in offshore energy development",
+            "authors": "Kuempel, Stockbridge, O’Neill, Griffiths, Frid, Brown",
+            "date": "March 2025",
+            "image": "kuempel_2025.png",
+            "abstract": "This paper presents frameworks and best practices for cumulative impact accounting in offshore energy development. We review existing methodologies and propose a standardized approach to assess and manage cumulative impacts associated with offshore energy projects, aiming to support sustainable development while minimizing environmental harm.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S0308597X24005712",
+            "categories": ["Cumulative impacts", "Offshore wind energy"]
+        },
+        {"id": "Stockbridge_2025",
+            "title": "Mapping the global co-location potential of offshore wind energy and aquaculture production",
+            "authors": "Stockbridge, Brown, Kuempel",
+            "date": "April 2025",
+            "image": "stockbridge_2025.png",
+            "abstract": "Offshore wind energy and aquaculture are two rapidly growing ocean uses that can potentially be co-located to optimize space and resources. In this study, we map the global potential for co-location of offshore wind farms",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S0964569125000675",
+            "categories": ["Conservation planning", "Offshore wind energy", "Food systems"]
+        },
+        {"id": "Christofidis_2025",
+            "title": "One-third of Australia’s coastal terrestrial aquaculture at risk from sea level rise",
+            "authors": "Christofidis, Lyons, Kuempel",
+            "date": "April 4, 2025",
+            "image": "christofidis_2025.png",
+            "abstract": "Sea level rise (SLR) poses significant risks to coastal aquaculture operations. In this study, we assess the vulnerability of Australia's coastal terrestrial aquaculture facilities to projected SLR scenarios. Our findings indicate that approximately one-third of these operations are at risk, highlighting the need for adaptive management strategies to mitigate potential impacts.",
+            "external_link": "https://link.springer.com/article/10.1186/s44365-025-00009-3",
+            "categories": ["Food systems", "Climate change"]
+        },
+        {"id": "Dominguez_martinez_2025",
+            "title": "Seafood Sustainability Challenges for Import-Dependent Nations",
+            "authors": "Dominguez-Martinez, Klein, Blanchard, Farmery, Kuempel, Roberson, Spillias, Cottrell",
+            "date": "March 2025",
+            "image": "martinez_2025.png",
+            "abstract": "Australia is a net importer of seafood, with imports making up approximately 70% of total seafood consumption. Relying on imports can create challenges for ensuring seafood sustainability, as imported products may come from fisheries or aquaculture operations with varying levels of sustainability practices and regulations. In this study, we explore the sustainability challenges faced by import-dependent nations like Australia and propose strategies to enhance the sustainability of imported seafood.",
+            "external_link": "https://www.tandfonline.com/doi/full/10.1080/23308249.2025.2555853",
+            "categories": ["Food systems"]
+        },
+        {"id": "Kuempel_2025b",
+            "title": "Half of coastal aquaculture sites in Queensland are in close proximity to shorebird habitats",
+            "authors": "Kuempel, Christofidis, Fuller, Bush, Garnett, Jackson",
+            "date": "October 2025",
+            "image": "kuempel_2025b.png",
+            "abstract": "This study examines the proximity of coastal aquaculture sites in Queensland to shorebird habitats, highlighting potential conflicts and conservation concerns. Our analysis reveals that half of these aquaculture sites are located near important shorebird habitats, underscoring the need for integrated management approaches to balance aquaculture development and shorebird conservation.",
+            "external_link": "https://www.sciencedirect.com/science/article/pii/S0964569125003126",
+            "categories": ["Conservation planning", "Food systems"]
+        }
+    ];
+    // --- END EMBEDDED DATA ---
+
+
+    // --- 2. Global Header Inclusion Script ---
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('_header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('global-header-placeholder').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Error loading global header:', error);
+            });
+    });
+
+    // --- 3. Dynamic Publication Grid Rendering and Filtering Script ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const data = publicationData; 
+        
+        if (!data || data.length === 0) {
+            document.getElementById('publications-grid').innerHTML = '<p class="text-center">Error: Publication data is missing or empty. Please ensure data is correctly embedded.</p>';
+            return;
+        }
+
+        const gridContainer = document.getElementById('publications-grid');
+        const categoryList = document.getElementById('category-list');
+        const categories = new Set(['All']); // Start with 'All' category
+
+        // 1. Collect all unique categories
+        data.forEach(pub => {
+            if (pub.categories) {
+                pub.categories.forEach(cat => categories.add(cat));
+            }
+        });
+
+        // 2. Display Categories in Sidebar and attach event listeners
+        categories.forEach(cat => {
+            const link = document.createElement('a');
+            link.href = '#';
+            link.textContent = cat;
+            link.setAttribute('data-category', cat);
+            categoryList.appendChild(link);
+            
+            // Set up click listener for filtering
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const filterCat = e.target.getAttribute('data-category');
+                
+                // Reset active status
+                document.querySelectorAll('#category-list a').forEach(a => a.classList.remove('active-filter'));
+                e.target.classList.add('active-filter');
+                
+                filterAndRender(filterCat);
+            });
+        });
+        
+        // Initial render: show all
+        filterAndRender('All'); 
+        
+        // Ensure 'All' link is marked active (after initial render)
+        const allLink = document.querySelector('#category-list a[data-category="All"]');
+        if (allLink) {
+             allLink.classList.add('active-filter');
+        }
+
+
+        // 3. Filtering Function
+        function filterAndRender(filterCat) {
+            
+            // CRITICAL FIX: CLEAR THE GRID BEFORE DOING ANY FILTERING
+            gridContainer.innerHTML = ''; 
+            
+            let filteredData = data.filter(pub => 
+                filterCat === 'All' || (pub.categories && pub.categories.includes(filterCat))
+            ).reverse(); // Reverse for newest first
+
+            
+            if (filteredData.length === 0) {
+                // If there are no results, the grid is already clear, so we just add the message.
+                gridContainer.innerHTML = '<p class="text-center w-100">No articles found in this category.</p>';
+                return;
+            }
+
+            filteredData.forEach(pub => {
+                // Get a short abstract preview (e.g., first 25 words)
+                const abstractPreview = pub.abstract.split(' ').slice(0, 25).join(' ') + (pub.abstract.split(' ').length > 25 ? '...' : '');
+                const imagePath = `publications/${pub.image}`;
+
+                const cardHtml = `
+                    <a href="${pub.external_link}" target="_blank" class="publication-card-link"> 
+                        <div class="publication-card">
+                            <img src="${imagePath}" alt="${pub.title} thumbnail" class="card-image">
+                            <div class="card-content">
+                                <h2 class="card-title">${pub.title}</h2>
+                                <p class="card-meta">${pub.authors} | ${pub.date}</p>
+                                <p class="abstract-preview">${pub.abstract}</p>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                gridContainer.innerHTML += cardHtml;
+            });
+        }
+    });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
