@@ -67,7 +67,7 @@
             "date": "Ongoing",
             "image": "australian_aquaculture.png",
             "abstract": "There is currently no national database of aquaculture farms in Australia. This project aims to create a comprehensive map of aquaculture farms across the country, including their locations, species farmed, and production distribution. This information will be used to evalute environmental risks to and from aquaculture production and to inform policy and management decisions related to aquaculture development and sustainability.",
-            "external_link": "https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/ecs2.1399",
+            "external_link": null,
             "categories": ["Aquaculture", "Food systems"]
         },
         {
@@ -87,7 +87,7 @@
             "date": "Ongoing",
             "image": "australia_awards_png.png",
             "abstract": "We are investigating the potential for nature-based solutions (NbS) to enhance coastal resilience in the face of climate change and other anthropogenic pressures. This is a collection of projects that has largely been focused on water quality improvement for coral reefs in Fiji in collaboration with World Wildlife Fund and capacity buildling for local practitioners in Papua New Guinea as part of an Australia Awards course.",
-            "external_link": ".",
+            "external_link": null,
             "categories": ["Nature-based solutions", "Coastal resilience"]
         },
                 {
@@ -97,7 +97,7 @@
             "date": "In development",
             "image": "offshore_wind.png",
             "abstract": "I am currently developing several projects to explore biodiversity-smart offshore wind development in Australia and globally. Aims include assessing biodiversity impacts from offshore wind and identifying key areas for offshore wind development that minimize impacts on marine biodiversity and ecosystem services, while maximizing energy production and economic benefits. The work hopes to improve policy and practice for a sustainable offshore wind industry.",
-            "external_link": ".",
+            "external_link": null,
             "categories": ["Nature-based solutions", "Coastal resilience"]
         }
     ];
@@ -184,25 +184,31 @@
                 return;
             }
 
-            filteredData.forEach(pub => {
-                // Get a short abstract preview (e.g., first 25 words)
-                const abstractPreview = pub.abstract.split(' ').slice(0, 25).join(' ') + (pub.abstract.split(' ').length > 25 ? '...' : '');
-                const imagePath = `publications/${pub.image}`;
+filteredData.forEach(pub => {
+    const abstractPreview = pub.abstract.split(' ').slice(0, 25).join(' ') +
+        (pub.abstract.split(' ').length > 25 ? '...' : '');
+    const imagePath = `publications/${pub.image}`;
 
-                const cardHtml = `
-                    <a href="${pub.external_link}" target="_blank" class="publication-card-link"> 
-                        <div class="publication-card">
-                            <img src="${imagePath}" alt="${pub.title} thumbnail" class="card-image">
-                            <div class="card-content">
-                                <h2 class="card-title">${pub.title}</h2>
-                                <p class="card-meta">${pub.authors} | ${pub.date}</p>
-                                <p class="abstract-preview">${pub.abstract}</p>
-                            </div>
-                        </div>
-                    </a>
-                `;
-                gridContainer.innerHTML += cardHtml;
-            });
+    // If the publication has a real link, wrap it in <a>. Otherwise, no link.
+    const isLink = pub.external_link && pub.external_link !== ".";
+
+    const cardInner = `
+        <div class="publication-card">
+            <img src="${imagePath}" alt="${pub.title} thumbnail" class="card-image">
+            <div class="card-content">
+                <h2 class="card-title">${pub.title}</h2>
+                <p class="card-meta">${pub.authors} | ${pub.date}</p>
+                <p class="abstract-preview">${abstractPreview}</p>
+            </div>
+        </div>
+    `;
+
+    const cardHtml = isLink
+        ? `<a href="${pub.external_link}" target="_blank" class="publication-card-link">${cardInner}</a>`
+        : `<div class="publication-card-wrapper">${cardInner}</div>`;
+
+    gridContainer.innerHTML += cardHtml;
+});
         }
     });
     </script>
